@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { Compte } from './models/compte';
+import { ContactAccessService } from './services/contact-acess.service';
+import { ContactAuthService } from './services/contact-auth.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -6,13 +10,39 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   public appPages = [
-    { title: 'Inbox', url: '/folder/Inbox', icon: 'mail' },
-    { title: 'Outbox', url: '/folder/Outbox', icon: 'paper-plane' },
-    { title: 'Favorites', url: '/folder/Favorites', icon: 'heart' },
-    { title: 'Archived', url: '/folder/Archived', icon: 'archive' },
-    { title: 'Trash', url: '/folder/Trash', icon: 'trash' },
-    { title: 'Spam', url: '/folder/Spam', icon: 'warning' },
+    { title: 'Mes Contacts', url: '/liste-contacts', icon: '' },
+    { title: 'Recommandations', url: '/list-contact-rec', icon: '' },
+    { title: 'Profile', url: '/profile', icon: '' },
+    { title: 'Favoris', url: '/favoris', icon: '' },
+    { title: 'Déconnexion', url: '/athentification', icon: '' },
+    // { title: 'inscription', url: '/inscription', icon: '' }
   ];
+
   public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor() {}
+  image: string;
+  compte: any={}; 
+  email: string;
+  
+  constructor(private contactService: ContactAccessService,
+    private fireauth: ContactAuthService,
+    private navCtrl : NavController,
+    ) {
+   }
+
+  ngOnInit() {
+   
+    this.fireauth.userDetails().subscribe(res => {
+      if (res !== null){
+        this.email = res.email;
+        this.contactService.getCompte(this.email).subscribe( res => {
+          this.compte=<Compte>res;
+       })
+       
+      } else {
+        this.navCtrl.navigateForward('/athentification');
+      }
+    }, err => {
+      console.log('erreur = ', err);
+    }) 
+  }
 }

@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+  <ion-buttons slot="start">
+  <ion-menu-button></ion-menu-button>
+  </ion-buttons>
+  <ion-title>Favoris</ion-title>
+  </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+       <ion-item *ngFor="let item of contacts">
+        <ion-thumbnail slot="start">
+          <ion-img src="../assets/icon/contact1.png" (click)="detailsContact(item.email)"></ion-img>
+          </ion-thumbnail>
+          <ion-label>{{item.nom}} {{item.prenom}}</ion-label>
+          <ion-label>{{item.service}}</ion-label>
+          
+        </ion-item>
+    </ion-list>
+        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        
+        </ion-fab>
+    </ion-content>

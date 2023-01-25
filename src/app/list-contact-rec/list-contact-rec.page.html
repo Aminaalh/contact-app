@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+  <ion-buttons slot="start">
+  <ion-menu-button></ion-menu-button>
+  </ion-buttons>
+  <ion-title>Liste des Contacts recommandés</ion-title>
+  </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-searchbar [(ngModel)]="searchTerm" ></ion-searchbar><br>
+        <ion-item *ngFor="let item of contacts | filter: searchTerm  " >
+        <ion-thumbnail slot="start">
+        <ion-img src="../assets/icon/contact1.png" (click)="detailsContact(item.email)"></ion-img>
+        </ion-thumbnail>
+        <ion-label>{{item.prenom}} {{item.nom}}</ion-label>
+        <ion-label>{{item.service}}</ion-label>
+        <ion-thumbnail>
+          <ion-img src="../assets/icon/likee.jpeg" class="your-img" (click)="like(item.likes,item)"></ion-img>
+          </ion-thumbnail>
+        <ion-label class="score" >{{item.likes}} </ion-label>
+        <ion-thumbnail>
+          <ion-img src="../assets/icon/dislikee.jpeg" class="your-img" (click)="dislike(item.dislikes,item)"></ion-img>
+          </ion-thumbnail>
+        <ion-label class="score">{{item.dislikes}} </ion-label>
+        </ion-item>
+        </ion-list>
+        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        
+        </ion-fab>
+    </ion-content>

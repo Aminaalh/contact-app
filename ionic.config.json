@@ -1,7 +1,10 @@
 {
   "name": "ContactManagement",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {
+      "enabled": false
+    },
+    "cordova": {}
   },
   "type": "angular"
 }
